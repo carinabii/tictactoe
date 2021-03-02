@@ -4,13 +4,11 @@ using namespace std;
 char* squares = new char[9]{'1', '5', '3', '4', '5', '6', '7', '8', '9'};
 enum Result {Ongoing, Win, Tie};
 
-
 int win1;
 int win2;
 
 
-
-
+// generates tictactoe board with current board inputs
 void makeBoard(string p1, string p2){
   cout << "\n\nTIC TAC TOE" << endl;
 
@@ -34,6 +32,9 @@ void makeBoard(string p1, string p2){
   
 }
 
+
+// restores the tictactoe board to have initial inputs of: 
+// 1, 2, 3, 4, 5, 6, 7, 8, 9
 void resetBoard(){
   squares[0] = '1';
   squares[1] = '2';
@@ -48,6 +49,11 @@ void resetBoard(){
   
 }
 
+
+// checks whether current game is ongoing, a win, or a tie
+// if total moves == 9, it is a tie
+// if any row, column or diagonal have the same inputs, it is a win
+// otherwise, game is still ongoing
 Result checkResult(int count){
   for (int i = 0; i < 4; i++){
     if (squares[i] == squares[i+3] && squares[i] == squares[i+6]){
@@ -77,6 +83,8 @@ Result checkResult(int count){
 
 }
 
+
+// returns the player that has the next move
 string  togglePlayer(string player, string p1, string p2){
   if (player == p1){
     return  p2;
@@ -86,8 +94,12 @@ string  togglePlayer(string player, string p1, string p2){
 }
 
 
+// generates the game and indicates the winner when game is over
+// changes the current state of the board depending on user's inputs
+// after one user finishes their turn, next user begins their turn
 int play(string p1, string p2, int toggle){
   string player;
+
   if (toggle%2 == 0){
     player = p2;
   } else {
@@ -113,9 +125,10 @@ int play(string p1, string p2, int toggle){
     }
 
     squares[pos-1] = *gamePiece;
-    
     makeBoard(p1, p2);
+
     count++;
+
   } while(checkResult(count) == Result::Ongoing);
 
   if (checkResult(count) == Result::Win){
