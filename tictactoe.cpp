@@ -115,12 +115,29 @@ int play(string p1, string p2, int toggle){
     player = togglePlayer(player, p1, p2);
     *gamePiece = (player == p1) ? 'X' : 'O';
     cout << player + ", please pick a square: ";
+    // cin >> pos;
+    
     cin >> pos;
+    while(cin.fail()) {
+        cout << "Not a Valid Square" << endl << endl;
+        cin.clear();
+        cin.ignore();
+        cout << player + ", please pick a square: ";
+        cin >> pos;
+    }
 
     while (squares[pos-1] == 'X' || squares[pos-1] == 'O'){
-      cout << "Invalid: Square Already Taken" << endl;
-      cout << player + ", please pick a square: " << endl;
+      cout << "Invalid: Square Already Taken" << endl << endl;
+      cout << player + ", please pick a square: ";
+      
       cin >> pos;
+      while(cin.fail()) {
+        cout << "Not a Valid Square" << endl << endl;
+        cin.clear();
+        cin.ignore();
+        cout << player + ", please pick a square: ";
+        cin >> pos;
+      }
       
     }
 
